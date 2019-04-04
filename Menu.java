@@ -21,6 +21,7 @@ public class Menu {
 	public int getSelection() {
 		int op = 0;
 		while (op==0){
+
 			System.out.println(title+"\n");
 			int i=1;
 			for (String option : options) {
@@ -44,4 +45,5 @@ public class Menu {
 		}
 		return op;
 	}
+
 }
