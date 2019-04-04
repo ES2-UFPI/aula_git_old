@@ -1,7 +1,11 @@
 public class Conta {
-    private double saldo = 0.0;
+    private Double saldo;
+    
+    public Conta(Double saldo) {
+        this.saldo = saldo;
+    }
 
-    private double getSaldo() {
+    private Double getSaldo() {
         return this.saldo;
     }
 }
