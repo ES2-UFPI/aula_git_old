@@ -1,30 +1,10 @@
 import java.util.Arrays;
 import java.util.List;
-import java.util.Scanner;
-
-import com.sun.security.ntlm.Client;
-
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Main {
 	ArrayList<Cliente> clientes = new ArrayList<>();
-	Scanner tc = new Scanner(System.in); // Create a Scanner object
-
-	public void adicionarCliente() {
-		String cpf;
-		String nome;
-		ArrayList<Conta> contas = new ArrayList<>();
-
-		System.out.println("Insira o CPF: ");
-		cpf = tc.nextLine();
-		System.out.println("Insira o Nome: ");
-		nome = tc.nextLine();
-
-		Cliente cliente = new Cliente(cpf, nome, contas);
-
-		clientes.add(cliente);
-	}
-
 	public void removerCliente(Cliente cliente) {
 		System.out.println("Insira o CPF do cliente a ser removido: ");
 		String nome = tc.nextLine();
@@ -88,7 +68,6 @@ public class Main {
 		String numConta = "";
 		List<String> opt;
 		int op = 0;
-		Scanner entrada = new Scanner(System.in);
 
 		do {
 			valor = 0;
@@ -111,31 +90,51 @@ public class Main {
 				break;
 			}
 		} while (op != 4);
-		this.menuClient();
+
+		this.menuCliente();
 		entrada.close();
 	}
 
 	public void menuCliente() {
 		Menu menu = new Menu("Operações", Arrays.asList("Criar cliente", "Remover conta", "Operações", "Sair"));
 		Scanner s = new Scanner(System.in);
+		
+		String cpf, nome;
 		int op = 0;
+		
 		do {
 			op = menu.getSelection(4);
 			switch (op) {
-			case 0:
-				// Criar cliente
-				break;
-			case 1:
-				// Remover cliente
-				break;
-			case 2:
-				// ask for cpf before.
-				this.MenuOperacoes(c);
-				break;
-			default:
-				System.out.println("Opção Invalida");
-				break;
-			}
+				case 0:
+					System.out.println("Digite o CPF do cliente: ");
+					cpf = s.nextLine();
+					System.out.println("Digite o nome do cliente: ");
+					nome = s.nextLine();
+
+					clientes.add(new Cliente().adicionarCliente(cpf, nome));
+					break;
+				
+				case 1:
+					System.out.println("Digite o CPF do cliente: ");
+					cpf = s.nextLine();
+
+					clientes.remove(new Cliente().removerCliente(clientes, cpf));
+					break;
+				
+				case 2:
+					System.out.println("Digite o CPF do cliente: ");
+					cpf = s.nextLine();
+					
+					Cliente c = new Cliente().buscarClientePorCpf(clientes, cpf); 
+					
+					if (c != null) { this.MenuOperacoes(c); } 
+					else { System.out.println("Não foi encontrado cliente."); }
+					break;
+
+				default:
+					System.out.println("Opção Invalida");
+					break;
+      }
 		} while (op != 3);
 		s.close();
 	}
@@ -145,5 +144,4 @@ public class Main {
 		m.menuCliente();
 		System.out.println("Fim");
 	}
-
 }

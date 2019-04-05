@@ -13,6 +13,8 @@ public class Cliente {
         this.contas = contas;
     }
 
+    public Cliente() {}
+
     public String getCpf() {
         return cpf;
     }
@@ -27,6 +29,25 @@ public class Cliente {
 
     public void setNome(String nome) {
         this.nome = nome;
+    }
+
+	public Cliente adicionarCliente(String cpf, String nome) {
+		ArrayList<Conta> contas = new ArrayList<>();
+        Cliente cliente = new Cliente(cpf, nome, contas);
+        return cliente;
+	}
+
+	public Cliente removerCliente(ArrayList<Cliente> clientes, String cpf) {
+		for (Cliente c : clientes) {
+			if (c.getCpf().equalsIgnoreCase(cpf)) {
+				return c;
+			}
+        }
+        return null;
+    }
+    
+    public Cliente buscarClientePorCpf(ArrayList<Cliente> clientes, String cpf) {
+        return removerCliente(clientes, cpf);
     }
 
     public void criarConta(Conta c) {
