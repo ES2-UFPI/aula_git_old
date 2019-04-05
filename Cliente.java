@@ -21,4 +21,8 @@ public class Cliente {
     public void setNome(String nome) {
         this.nome = nome;
     }
+
+    public void criarConta(Conta c) {
+        contas.add(c);
+    }
 }
