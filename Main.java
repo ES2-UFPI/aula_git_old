@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 public class Main {
 	ArrayList<Cliente> clientes = new ArrayList<>();
-	Scanner tc = new Scanner(System.in);  // Create a Scanner object
+	Scanner tc = new Scanner(System.in); // Create a Scanner object
 
 	public void adicionarCliente() {
 		String cpf;
@@ -33,47 +33,76 @@ public class Main {
 			}
 		}
 	}
-	public static void main(String[] args) {
-		Menu mainMenu =  new Menu("Menu Principal", Arrays.asList("Sacar", "Depositar", "Ver Saldo", "Transferir", "Sair"));
-		Scanner entrada = new Scanner(System.in);
+
+	private void MenuOperações() {
+		Menu menu = new Menu("Operações", Arrays.asList("Sacar", "Depositar", "Ver Saldo", "Transferir", "Voltar"));
 		float valor = 0;
 		List<String> opt;
-		int op=0;
+		int op = 0;
+		Scanner entrada = new Scanner(System.in);
+
 		do {
 			valor = 0;
-			opt = mainMenu.getOptions();
-			op = mainMenu.getSelection();
-			System.out.println( opt.get(op) + " foi selecionada");
-			switch (op){
-				case 0:
-					System.out.println("Digite o valor a ser sacado!");
-					valor = entrada.nextFloat();
-					//System.out.println( Float.toString(valor) + " foi sacado");
-					break;
+			op = menu.getSelection(5);
+			switch (op) {
+			case 0:
+				System.out.println("Digite o valor a ser sacado!");
+				valor = entrada.nextFloat();
+				// System.out.println( Float.toString(valor) + " foi sacado");
+				break;
 
-				
-				case 1:					
-					System.out.println("Digite o valor a ser depositado!");
-					valor =  entrada.nextFloat();	
-					//System.out.println( Float.toString(valor) + " foi depositado");
-					break;
-				
-				case 2:						
-				//Acredito que aqui basta chamar o método de versaldos da classe operação
-					break;
+			case 1:
+				System.out.println("Digite o valor a ser depositado!");
+				valor = entrada.nextFloat();
+				// System.out.println( Float.toString(valor) + " foi depositado");
+				break;
 
-				case 3:
-					System.out.println("Digite o valor a ser transferido!");
-					valor =  entrada.nextFloat();
-					//System.out.println( Float.toString(valor) + " foi transferido");
-					break;
-				default:
-					System.out.println("Opção Invalida");
-					break;
+			case 2:
+				// Acredito que aqui basta chamar o método de versaldos da classe operação
+				break;
+
+			case 3:
+				System.out.println("Digite o valor a ser transferido!");
+				// System.out.println( Float.toString(valor) + " foi transferido");
+				break;
+			default:
+				System.out.println("Opção Invalida");
+				break;
 			}
-		} while(op!=4);
-		System.out.println("Fim");
+		} while (op != 4);
+		this.menuClient();
 		entrada.close();
+	}
+
+	public void menuClient() {
+		Menu menu = new Menu("Operações", Arrays.asList("Criar cliente", "Remover conta", "Operações", "Sair"));
+		Scanner s = new Scanner(System.in);
+		int op = 0;
+		do {
+			op = menu.getSelection(4);
+			switch (op) {
+			case 0:
+				// Criar cliente
+				break;
+			case 1:
+				// Remover cliente
+				break;
+			case 2:
+				// ask for cpf before.
+				this.MenuOperações();
+				break;
+			default:
+				System.out.println("Opção Invalida");
+				break;
+			}
+		} while (op != 3);
+		s.close();
+	}
+
+	public static void main(String[] args) {
+		Main m = new Main();
+		m.menuClient();
+		System.out.println("Fim");
 	}
 
 }
