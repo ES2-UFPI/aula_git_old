@@ -2,7 +2,7 @@ import java.util.List;
 
 //import javax.swing.JComboBox; Ia fazer interface gráfica, mas evitei
 import javax.swing.JOptionPane;
-
+import java.util.Scanner;
 public class Menu {
 	private String title;
 	private List<String> options;
@@ -23,7 +23,9 @@ public class Menu {
 			System.out.println(Integer.toString(i) + "-" + options.get(i));
 			i++;
 		}		
-		opcao = Integer.parseInt(JOptionPane.showInputDialog("Digite a opção!"));
+		Scanner s = new Scanner(System.in);
+		String str = s.nextLine();
+		opcao = Integer.parseInt(str);
 		return opcao;
 
 	}
