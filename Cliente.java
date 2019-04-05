@@ -36,7 +36,7 @@ public class Cliente {
     public void removerConta(Conta c) {
         for (Iterator<Conta> iterator = this.getContas().iterator(); iterator.hasNext();) {
             Conta c1 = iterator.next();
-            if (c.getID() == c1.getID()) {
+            if (c.getAgencia() == c1.getAgencia()) {
                 this.getContas().remove(c);
             }
         }
