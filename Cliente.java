@@ -28,4 +28,7 @@ public class Cliente {
         this.nome = nome;
     }
 
+    public void criarConta(Conta c) {
+        contas.add(c);
+    }
 }
