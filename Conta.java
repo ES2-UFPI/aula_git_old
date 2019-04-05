@@ -1,5 +1,5 @@
 public class Conta {
-    
+
     private int agencia;
     private Double saldo;
     private String historico;
@@ -26,7 +26,12 @@ public class Conta {
     }
 
     public void addOperation(Operacao op) {
-        String str = "Tipo: " + op.getTipo() + "\nValor:" + op.getValor() + "\nDest:" + op.getDestinatario() + "\n";
-		this.historico += str;
+        String str = "";
+        if (op.getTipo() == 3) {
+            str = "Tipo: " + op.getTipo() + "\nValor:" + op.getValor() + "\nDe: " + op.getRemetente() + " Para: "
+                    + op.getDestinatario() + "\n";
+        }
+        str = "Tipo: " + op.getTipo() + "\nValor:" + op.getValor() + "\nDest:" + op.getDestinatario() + "\n";
+        this.historico += str;
     }
 }
