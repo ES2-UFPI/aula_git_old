@@ -1,6 +1,9 @@
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
+
+import com.sun.security.ntlm.Client;
+
 import java.util.ArrayList;
 
 public class Main {
@@ -25,7 +28,6 @@ public class Main {
 	public void removerCliente(Cliente cliente) {
 		System.out.println("Insira o CPF do cliente a ser removido: ");
 		String nome = tc.nextLine();
-
 		for (Cliente c : clientes) {
 			if (c.getNome() == nome) {
 				clientes.remove(c);
@@ -34,9 +36,56 @@ public class Main {
 		}
 	}
 
-	private void MenuOperações() {
+	public Conta verifyConta(int num) {
+		for (Cliente c : clientes) {
+			for (Conta conta : c.getContas()) {
+				if (conta.getAgencia() == num)
+					return conta;
+			}
+		}
+		return null;
+	}
+
+	public void doOperation(int tipo, Cliente c) {
+		Scanner entrada = new Scanner(System.in);
+
+		System.out.println("Digite o número da conta: ");
+		String numConta = entrada.nextLine();
+		Conta conta = this.verifyConta(Integer.parseInt(numConta));
+		Conta c2 = null;
+		if (conta != null) {
+			if (tipo == 3) {
+				System.out.println("Saldo atual: " + conta.getSaldo());]
+				return;
+			}
+			else if (tipo == 4) {
+				System.out.println("Digite o número da conta a ser transferido o dinheiro: ");
+				String num2 = entrada.nextLine();
+				c2 = this.verifyConta(Integer.parseInt(num2));
+				if (c2 != null) {
+					System.out.println("Digite o valor: ");
+					double valor = entrada.nextFloat();
+					c.doOperation(tipo, valor, conta, c2);
+				} else {
+					System.out.println("Conta não existe");
+				}
+				return;
+			} else {
+				System.out.println("Digite o valor: ");
+				double valor = entrada.nextFloat();
+				c.doOperation(tipo, valor, conta, c2);
+			}
+		} else {
+			System.out.println("Conta não existe");
+		}
+		entrada.close();
+		return;
+	}
+
+	private void MenuOperacoes(Cliente c) {
 		Menu menu = new Menu("Operações", Arrays.asList("Sacar", "Depositar", "Ver Saldo", "Transferir", "Voltar"));
 		float valor = 0;
+		String numConta = "";
 		List<String> opt;
 		int op = 0;
 		Scanner entrada = new Scanner(System.in);
@@ -46,24 +95,16 @@ public class Main {
 			op = menu.getSelection(5);
 			switch (op) {
 			case 0:
-				System.out.println("Digite o valor a ser sacado!");
-				valor = entrada.nextFloat();
-				// System.out.println( Float.toString(valor) + " foi sacado");
+				this.doOperation(1, c);
 				break;
-
 			case 1:
-				System.out.println("Digite o valor a ser depositado!");
-				valor = entrada.nextFloat();
-				// System.out.println( Float.toString(valor) + " foi depositado");
+				this.doOperation(2, c);
 				break;
-
 			case 2:
-				// Acredito que aqui basta chamar o método de versaldos da classe operação
+				this.doOperation(3, c);
 				break;
-
 			case 3:
-				System.out.println("Digite o valor a ser transferido!");
-				// System.out.println( Float.toString(valor) + " foi transferido");
+				this.doOperation(4, c);
 				break;
 			default:
 				System.out.println("Opção Invalida");
@@ -74,7 +115,7 @@ public class Main {
 		entrada.close();
 	}
 
-	public void menuClient() {
+	public void menuCliente() {
 		Menu menu = new Menu("Operações", Arrays.asList("Criar cliente", "Remover conta", "Operações", "Sair"));
 		Scanner s = new Scanner(System.in);
 		int op = 0;
@@ -89,7 +130,7 @@ public class Main {
 				break;
 			case 2:
 				// ask for cpf before.
-				this.MenuOperações();
+				this.MenuOperacoes(c);
 				break;
 			default:
 				System.out.println("Opção Invalida");
@@ -101,7 +142,7 @@ public class Main {
 
 	public static void main(String[] args) {
 		Main m = new Main();
-		m.menuClient();
+		m.menuCliente();
 		System.out.println("Fim");
 	}
 

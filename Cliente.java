@@ -41,4 +41,9 @@ public class Cliente {
             }
         }
     }
+
+    public void doOperation(int tipo, double valor, Conta rem, Conta dest) {
+        Operacao op = new Operacao(tipo, valor, dest, rem);
+        op.doOperation();
+    }
 }
