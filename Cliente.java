@@ -29,6 +29,6 @@ public class Cliente {
     }
 
     public void criarConta(Conta c) {
-        contas.add(c);
+        this.getContas().add(c);
     }
 }
