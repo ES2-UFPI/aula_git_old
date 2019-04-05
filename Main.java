@@ -49,24 +49,27 @@ public class Main {
 					System.out.println("Digite o valor a ser sacado!");
 					valor = entrada.nextFloat();
 					//System.out.println( Float.toString(valor) + " foi sacado");
-				break;
+					break;
 
 				
 				case 1:					
 					System.out.println("Digite o valor a ser depositado!");
 					valor =  entrada.nextFloat();	
 					//System.out.println( Float.toString(valor) + " foi depositado");
-				break;
+					break;
 				
 				case 2:						
 				//Acredito que aqui basta chamar o método de versaldos da classe operação
-				break;
+					break;
 
 				case 3:
 					System.out.println("Digite o valor a ser transferido!");
 					valor =  entrada.nextFloat();
 					//System.out.println( Float.toString(valor) + " foi transferido");
-				break;
+					break;
+				default:
+					System.out.println("Opção Invalida");
+					break;
 			}
 		} while(op!=4);
 		System.out.println("Fim");
