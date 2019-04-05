@@ -17,11 +17,11 @@ public class Operacao {
         return tipo;
     }
 
-    public int getValor() {
+    public Double getValor() {
         return valor;
     }
 
-    public int getDestinatario() {
+    public Conta getDestinatario() {
         return dest;
     }
 
@@ -35,5 +35,20 @@ public class Operacao {
 
     public void setDestinatario(Conta dest) {
         this.dest = dest;
+    }
+
+    public void doOperation() {
+
+        switch (getTipo()) {
+        case 1:
+            // Saque
+            Conta c1 = getDestinatario();
+            c1.setSaldo(c1.getSaldo() - getValor());
+            break;
+        case 2:
+        case 3:
+        default:
+        }
+
     }
 }
