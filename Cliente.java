@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class Cliente {
 
@@ -12,7 +13,7 @@ public class Cliente {
         this.contas = contas;
     }
 
-    public String getCpf(){
+    public String getCpf() {
         return cpf;
     }
 
@@ -30,5 +31,14 @@ public class Cliente {
 
     public void criarConta(Conta c) {
         contas.add(c);
+    }
+
+    public void removerConta(Conta c) {
+        for (Iterator<Conta> iterator = this.getContas().iterator(); iterator.hasNext();) {
+            Conta c1 = iterator.next();
+            if (c.getID() == c1.getID()) {
+                this.getContas().remove(c);
+            }
+        }
     }
 }
