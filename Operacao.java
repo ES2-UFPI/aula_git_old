@@ -54,11 +54,13 @@ public class Operacao {
             // Saque
             Conta c1 = getDestinatario();
             c1.setSaldo(c1.getSaldo() - getValor());
+            c1.addOperation(this);
             break;
         case 2:
             // Deposito
             Conta c2 = getDestinatario();
             c2.setSaldo(c2.getSaldo() + getValor());
+            c2.addOperation(this);
             break;
         case 3:
             // Tranferencia
@@ -66,7 +68,9 @@ public class Operacao {
             Conta c4 = getDestinatario();
             c3.setSaldo(c3.getSaldo() - getValor());
             c4.setSaldo(c4.getSaldo() + getValor());
-            
+            c3.addOperation(this);
+            c4.addOperation(this);
+
         default:
         }
 
