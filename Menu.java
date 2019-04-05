@@ -1,8 +1,11 @@
 
+import java.io.Console;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+
+import javax.swing.JOptionPane;
 
 public class Menu {
 	private String title;
@@ -18,8 +21,19 @@ public class Menu {
 		this.options = options;
 	}
 
-	public int getSelection() {
-		int op = 0;
+	public int getSelection() {		
+		int opcao, i = 0;
+		while(i<5){
+			System.out.println(Integer.toString(i) + "-" + options.get(i));
+			i++;
+		}
+		opcao = Integer.parseInt(JOptionPane.showInputDialog("Digite a opção!"));
+		return opcao;
+
+	}
+}
+/* I dont know how this function
+int op = 0;
 		while (op == 0) {
 			System.out.println(title + "\n");
 			int i = 1;
@@ -42,5 +56,5 @@ public class Menu {
 
 		}
 		return op;
-	}
-}
+
+*/
