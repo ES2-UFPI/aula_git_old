@@ -1,12 +1,12 @@
 public class Conta {
     
-    private int id;
+    private int agencia;
     private Double saldo;
     private String historico;
 
-    public Conta(Double saldo, int id) {
+    public Conta(Double saldo, int agencia) {
         this.saldo = saldo;
-        this.id = id;
+        this.agencia = agencia;
     }
 
     public Double getSaldo() {
@@ -17,8 +17,8 @@ public class Conta {
         return this.historico;
     }
 
-    public int getID() {
-        return this.id;
+    public int getAgencia() {
+        return this.agencia;
     }
 
     public void setSaldo(double saldo) {
