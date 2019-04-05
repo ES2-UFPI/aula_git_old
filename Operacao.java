@@ -85,7 +85,7 @@ public class Operacao {
                     c3.addOperation(this);
                     c4.addOperation(this);
                 } else {
-                    if(c3.getSaldo() - getValor() < 0) { System.out.println("Remetente não possui saldo na conta."); }
+                    if(c3.getSaldo() - getValor() < 0) { System.out.println("Saldo insuficiente."); }
                     if(getValor() < 0) { System.out.println("Valor negativo."); }
                 }
             default: break;
