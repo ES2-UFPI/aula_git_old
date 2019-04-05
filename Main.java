@@ -1,4 +1,5 @@
 import java.util.Arrays;
+import java.util.List;
 import java.util.Scanner;
 import java.util.ArrayList;
 
@@ -33,13 +34,46 @@ public class Main {
 		}
 	}
 	public static void main(String[] args) {
-		Menu mainMenu = new Menu("Menu Principal", Arrays.asList("Conta", "Cliente", "Operacoes", "Sair"));
+		Menu mainMenu =  new Menu("Menu Principal", Arrays.asList("Sacar", "Depositar", "Ver Saldo", "Transferir", "Sair"));
+		Scanner entrada = new Scanner(System.in);
+		float valor = 0;
+		List<String> opt;
 		int op=0;
 		do {
+			valor = 0;
+			opt = mainMenu.getOptions();
 			op = mainMenu.getSelection();
-			System.out.println( op + "foi selecionada");
+			System.out.println( opt.get(op) + " foi selecionada");
+			switch (op){
+				case 0:
+					System.out.println("Digite o valor a ser sacado!");
+					valor = entrada.nextFloat();
+					//System.out.println( Float.toString(valor) + " foi sacado");
+					break;
+
+				
+				case 1:					
+					System.out.println("Digite o valor a ser depositado!");
+					valor =  entrada.nextFloat();	
+					//System.out.println( Float.toString(valor) + " foi depositado");
+					break;
+				
+				case 2:						
+				//Acredito que aqui basta chamar o método de versaldos da classe operação
+					break;
+
+				case 3:
+					System.out.println("Digite o valor a ser transferido!");
+					valor =  entrada.nextFloat();
+					//System.out.println( Float.toString(valor) + " foi transferido");
+					break;
+				default:
+					System.out.println("Opção Invalida");
+					break;
+			}
 		} while(op!=4);
 		System.out.println("Fim");
+		entrada.close();
 	}
 
 }
