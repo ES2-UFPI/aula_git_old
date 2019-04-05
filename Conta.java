@@ -1,9 +1,12 @@
 public class Conta {
+    
+    private int id;
     private Double saldo;
     private String historico;
 
-    public Conta(Double saldo) {
+    public Conta(Double saldo, int id) {
         this.saldo = saldo;
+        this.id = id;
     }
 
     public Double getSaldo() {
@@ -12,6 +15,10 @@ public class Conta {
 
     public String getHistorico() {
         return this.historico;
+    }
+
+    public int getID() {
+        return this.id;
     }
 
     public void setSaldo(double saldo) {
