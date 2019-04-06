@@ -11,7 +11,8 @@ public class Conta {
         this.agencia = agencia;
     }
 
-    public Conta() {}
+    public Conta() {
+    }
 
     public Double getSaldo() {
         return this.saldo;
@@ -35,7 +36,7 @@ public class Conta {
                 return c;
             }
         }
-      	return null;
+        return null;
     }
 
     public void addOperation(Operacao op) {
