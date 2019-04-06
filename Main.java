@@ -76,14 +76,22 @@ public class Main {
 			case 4:
 				System.out.println("Digite o numero da conta: ");
 				numConta = s.nextLine();
-
-				c.criarConta(new Conta().adicionarConta(Integer.parseInt(numConta)));
+				int num = Integer.parseInt(numConta);
+				if (verifyConta(num) == null) {
+					c.criarConta(new Conta(0.0, num));
+				}else{
+					System.out.println("Conta já existe!");
+				}
 				break;
 			case 5:
 				System.out.println("Digite o numero da conta: ");
 				numConta = s.nextLine();
-				
-				c.removerConta(verifyConta(Integer.parseInt(numConta)));
+				Conta conta = verifyConta(Integer.parseInt(numConta));
+				if (conta != null) {
+					c.removerConta(conta);
+				}else{
+					System.out.println("Conta não existe!");
+				}
 				break;
 			default:
 				System.out.println("Opção Invalida");
@@ -113,13 +121,11 @@ public class Main {
 			op = menu.getSelection(4);
 			switch (op) {
 			case 0:
-				System.out.println("Digite o CPF do cliente: ");
-				cpf = s.nextLine();
 				autorizado = verificaCPF(cpf);
 				if (autorizado){
 					System.out.println("Digite o nome do cliente: ");
 					nome = s.nextLine();
-					clientes.add(new Cliente().adicionarCliente(cpf, nome));
+					clientes.add(new Cliente(cpf, nome, new ArrayList<Conta>());
 				}
 				else{
 					System.out.println("Já existe um cliente com esse cpf!");
