@@ -53,15 +53,13 @@ public class Main {
 	}
 
 	private void MenuOperacoes(Cliente c) {
-		Menu menu = new Menu("Operações", Arrays.asList("Sacar", "Depositar", "Ver Saldo", "Transferir", "Voltar"));
-		float valor = 0;
-		String numConta = "";
-		List<String> opt;
+		Menu menu = new Menu("Operações", Arrays.asList("Sacar", "Depositar", "Ver Saldo", "Transferir", "Adicionar conta", "Remover conta", "Voltar"));
+		Scanner s = new Scanner(System.in);
+		String numConta;
 		int op = 0;
 
 		do {
-			valor = 0;
-			op = menu.getSelection(5);
+			op = menu.getSelection(7);
 			switch (op) {
 			case 0:
 				this.doOperation(1, c);
@@ -75,11 +73,24 @@ public class Main {
 			case 3:
 				this.doOperation(4, c);
 				break;
+			case 4:
+				System.out.println("Digite o numero da conta: ");
+				numConta = s.nextLine();
+
+				c.criarConta(new Conta().adicionarConta(Integer.parseInt(numConta)));
+				break;
+			case 5:
+				System.out.println("Digite o numero da conta: ");
+				numConta = s.nextLine();
+				
+				c.removerConta(verifyConta(Integer.parseInt(numConta)));
+				break;
 			default:
 				System.out.println("Opção Invalida");
 				break;
 			}
-		} while (op != 4);
+		} while (op != 6);
+		s.close();
 		this.menuCliente();
 	}
 
