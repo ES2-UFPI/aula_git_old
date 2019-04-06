@@ -29,13 +29,13 @@ public class Conta {
         this.saldo = saldo;
     }
 
-	public Conta removerConta(ArrayList<Conta> contas, int agencia) {
-		for (Conta c : contas) {
-			if (c.getAgencia() == agencia) {
-				return c;
-			}
+    public Conta removerConta(ArrayList<Conta> contas, int agencia) {
+        for (Conta c : contas) {
+            if (c.getAgencia() == agencia) {
+                return c;
+            }
         }
-        return null;
+      	return null;
     }
 
     public void addOperation(Operacao op) {
