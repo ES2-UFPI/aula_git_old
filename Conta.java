@@ -11,9 +11,6 @@ public class Conta {
         this.agencia = agencia;
     }
 
-    public Conta() {
-    }
-
     public Double getSaldo() {
         return this.saldo;
     }
@@ -30,22 +27,14 @@ public class Conta {
         this.saldo = saldo;
     }
 
-    public Conta removerConta(ArrayList<Conta> contas, int agencia) {
-        for (Conta c : contas) {
-            if (c.getAgencia() == agencia) {
-                return c;
-            }
-        }
-        return null;
-    }
-
     public void addOperation(Operacao op) {
         String str = "";
         if (op.getTipo() == 3) {
             str = "Tipo: " + op.getTipo() + "\nValor:" + op.getValor() + "\nDe: " + op.getRemetente() + " Para: "
                     + op.getDestinatario() + "\n";
+        } else {
+            str = "Tipo: " + op.getTipo() + "\nValor:" + op.getValor() + "\nDest:" + op.getDestinatario() + "\n";
+            this.historico += str;
         }
-        str = "Tipo: " + op.getTipo() + "\nValor:" + op.getValor() + "\nDest:" + op.getDestinatario() + "\n";
-        this.historico += str;
     }
 }
