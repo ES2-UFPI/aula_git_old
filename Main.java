@@ -76,14 +76,22 @@ public class Main {
 			case 4:
 				System.out.println("Digite o numero da conta: ");
 				numConta = s.nextLine();
-
-				c.criarConta(new Conta(0.0, Integer.parseInt(numConta)));
+				int num = Integer.parseInt(numConta);
+				if (verifyConta(num) == null) {
+					c.criarConta(new Conta(0.0, num));
+				}else{
+					System.out.println("Conta já existe!");
+				}
 				break;
 			case 5:
 				System.out.println("Digite o numero da conta: ");
 				numConta = s.nextLine();
-				
-				c.removerConta(verifyConta(Integer.parseInt(numConta)));
+				Conta conta = verifyConta(Integer.parseInt(numConta));
+				if (conta != null) {
+					c.removerConta(conta);
+				}else{
+					System.out.println("Conta não existe!");
+				}
 				break;
 			default:
 				System.out.println("Opção Invalida");
