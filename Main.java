@@ -16,6 +16,22 @@ public class Main {
 		return null;
 	}
 
+	public Cliente buscarClientePorCpf(String cpf) {
+		for (Cliente c : clientes) {
+			if (c.getCpf().equalsIgnoreCase(cpf)) {
+				return c;
+			}
+		}
+		return null;
+	}
+
+	public void RemoverCliente(Cliente c) {
+		for (Conta conta : c.getContas()) {
+			c.getContas().remove(conta);
+		}
+		clientes.remove(c);
+	}
+
 	public void doOperation(int tipo, Cliente c) {
 		Scanner entrada = new Scanner(System.in);
 
@@ -53,7 +69,8 @@ public class Main {
 	}
 
 	private void MenuOperacoes(Cliente c) {
-		Menu menu = new Menu("Operações", Arrays.asList("Sacar", "Depositar", "Ver Saldo", "Transferir", "Adicionar conta", "Remover conta", "Voltar"));
+		Menu menu = new Menu("Operações", Arrays.asList("Sacar", "Depositar", "Ver Saldo", "Transferir",
+				"Adicionar conta", "Remover conta", "Voltar"));
 		Scanner s = new Scanner(System.in);
 		String numConta;
 		int op = 0;
@@ -79,7 +96,7 @@ public class Main {
 				int num = Integer.parseInt(numConta);
 				if (verifyConta(num) == null) {
 					c.criarConta(new Conta(0.0, num));
-				}else{
+				} else {
 					System.out.println("Conta já existe!");
 				}
 				break;
@@ -89,26 +106,25 @@ public class Main {
 				Conta conta = verifyConta(Integer.parseInt(numConta));
 				if (conta != null) {
 					c.removerConta(conta);
-				}else{
+				} else {
 					System.out.println("Conta não existe!");
 				}
-				break;
-			default:
-				System.out.println("Opção Invalida");
 				break;
 			}
 		} while (op != 6);
 		s.close();
 		this.menuCliente();
 	}
-	public Boolean verificaCPF(String cpf){
-		for (Cliente cliente : clientes){
-			if (cpf == cliente.getCpf()){
+
+	public Boolean verificaCPF(String cpf) {
+		for (Cliente cliente : clientes) {
+			if (cpf == cliente.getCpf()) {
 				return false;
 			}
 		}
 		return true;
 	}
+
 	public void menuCliente() {
 		Menu menu = new Menu("Operações", Arrays.asList("Criar cliente", "Remover conta", "Operações", "Sair"));
 		Scanner s = new Scanner(System.in);
@@ -116,18 +132,19 @@ public class Main {
 		String cpf, nome;
 		int op = 0;
 		boolean autorizado;
-
+		Cliente c;
 		do {
 			op = menu.getSelection(4);
 			switch (op) {
 			case 0:
+				System.out.println("Digite o nome do cliente: ");
+				cpf = s.nextLine();
 				autorizado = verificaCPF(cpf);
-				if (autorizado){
+				if (autorizado) {
 					System.out.println("Digite o nome do cliente: ");
 					nome = s.nextLine();
-					clientes.add(new Cliente(cpf, nome, new ArrayList<Conta>());
-				}
-				else{
+					clientes.add(new Cliente(cpf, nome, new ArrayList<Conta>()));
+				} else {
 					System.out.println("Já existe um cliente com esse cpf!");
 					break;
 				}
@@ -136,25 +153,24 @@ public class Main {
 			case 1:
 				System.out.println("Digite o CPF do cliente: ");
 				cpf = s.nextLine();
-
-				clientes.remove(new Cliente().removerCliente(clientes, cpf));
+				c = buscarClientePorCpf(cpf);
+				if (c != null)
+					RemoverCliente(c);
+				else
+					System.out.println("Não existe um cliente com este CPF");
 				break;
 
 			case 2:
 				System.out.println("Digite o CPF do cliente: ");
 				cpf = s.nextLine();
 
-				Cliente c = new Cliente().buscarClientePorCpf(clientes, cpf);
+				c = buscarClientePorCpf(cpf);
 
 				if (c != null) {
 					this.MenuOperacoes(c);
 				} else {
 					System.out.println("Não foi encontrado cliente.");
 				}
-				break;
-
-			default:
-				System.out.println("Opção Invalida");
 				break;
 			}
 		} while (op != 3);

@@ -13,7 +13,8 @@ public class Cliente {
         this.contas = contas;
     }
 
-    public Cliente() {}
+    public Cliente() {
+    }
 
     public String getCpf() {
         return cpf;
