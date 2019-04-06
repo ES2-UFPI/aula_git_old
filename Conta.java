@@ -7,6 +7,7 @@ public class Conta {
     public Conta(Double saldo, int agencia) {
         this.saldo = saldo;
         this.agencia = agencia;
+        this.historico = "";
     }
 
     public Double getSaldo() {
@@ -28,10 +29,10 @@ public class Conta {
     public void addOperation(Operacao op) {
         String str = "";
         if (op.getTipo() == 3) {
-            str = "Tipo: " + op.getTipo() + "\nValor:" + op.getValor() + "\nDe: " + op.getRemetente() + " Para: "
-                    + op.getDestinatario() + "\n";
+            str = "Tipo: " + op.getTipo() + "\nValor:" + op.getValor() + "\nDe: " + Integer.toString(op.getRemetente().getAgencia()) + " Para: "
+                    +Integer.toString(op.getDestinatario().getAgencia())  + "\n";
         } else {
-            str = "Tipo: " + op.getTipo() + "\nValor:" + op.getValor() + "\nDest:" + op.getDestinatario() + "\n";
+            str = "Tipo: " + op.getTipo() + "\nValor:" + op.getValor() + "\nDest:" + Integer.toString(op.getDestinatario().getAgencia()) + "\n";
         }
         this.historico += str;
     }
