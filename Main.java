@@ -1,180 +1,141 @@
 import java.util.Arrays;
-import java.util.List;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main {
-	ArrayList<Cliente> clientes = new ArrayList<>();
-
-	public Conta verifyConta(int num) {
-		for (Cliente c : clientes) {
-			for (Conta conta : c.getContas()) {
-				if (conta.getAgencia() == num)
-					return conta;
-			}
-		}
-		return null;
-	}
-
-	public Cliente buscarClientePorCpf(String cpf) {
-		for (Cliente c : clientes) {
-			if (c.getCpf().equalsIgnoreCase(cpf)) {
-				return c;
-			}
-		}
-		return null;
-	}
-
-	public void RemoverCliente(Cliente c) {
-		for (Conta conta : c.getContas()) {
-			c.getContas().remove(conta);
-		}
-		clientes.remove(c);
-	}
+	ClienteManager cm = new ClienteManager();
+	Scanner sc = new Scanner(System.in);
 
 	public void doOperation(int tipo, Cliente c) {
-		Scanner entrada = new Scanner(System.in);
-
 		System.out.println("Digite o número da conta: ");
-		String numConta = entrada.nextLine();
-		Conta conta = this.verifyConta(Integer.parseInt(numConta));
+		String numConta = sc.nextLine();
+		
+		Conta conta = cm.verifyConta(Integer.parseInt(numConta));
 		Conta c2 = null;
+		
 		if (conta != null) {
 			if (tipo == 3) {
 				System.out.println("Saldo atual: " + conta.getSaldo());
 				return;
+
 			} else if (tipo == 4) {
 				System.out.println("Digite o número da conta a ser transferido o dinheiro: ");
-				String num2 = entrada.nextLine();
-				c2 = this.verifyConta(Integer.parseInt(num2));
+				String num2 = sc.nextLine();
+				c2 = cm.verifyConta(Integer.parseInt(num2));
+
 				if (c2 != null) {
 					System.out.println("Digite o valor: ");
-					double valor = entrada.nextFloat();
+					double valor = sc.nextFloat();
 					c.doOperation(tipo, valor, conta, c2);
-				} else {
-					System.out.println("Conta não existe");
-				}
+
+				} else { System.out.println("Conta não existe"); }
 				return;
+
 			} else {
 				System.out.println("Digite o valor: ");
-				double valor = entrada.nextFloat();
+				double valor = sc.nextFloat();
 				c.doOperation(tipo, valor, conta, c2);
 			}
+
 		} else {
 			System.out.println("Conta não existe");
 			return;
 		}
-		entrada.close();
+		sc.close();
 		return;
 	}
 
 	private void MenuOperacoes(Cliente c) {
 		Menu menu = new Menu("Operações", Arrays.asList("Sacar", "Depositar", "Ver Saldo", "Transferir",
-				"Adicionar conta", "Remover conta", "Voltar"));
-		Scanner s = new Scanner(System.in);
+				"Adicionar conta", "Remover conta", "Ver Operacoes", "Voltar"));
 		String numConta;
 		int op = 0;
 
 		do {
-			op = menu.getSelection(7);
+			op = menu.getSelection(8);
 			switch (op) {
 			case 0:
-				this.doOperation(1, c);
-				break;
+				this.doOperation(1, c); break;
 			case 1:
-				this.doOperation(2, c);
-				break;
+				this.doOperation(2, c); break;
 			case 2:
-				this.doOperation(3, c);
-				break;
+				this.doOperation(3, c); break;
 			case 3:
-				this.doOperation(4, c);
-				break;
+				this.doOperation(4, c); break;
 			case 4:
 				System.out.println("Digite o numero da conta: ");
-				numConta = s.nextLine();
+				numConta = sc.nextLine();
 				int num = Integer.parseInt(numConta);
-				if (verifyConta(num) == null) {
-					c.criarConta(new Conta(0.0, num));
-				} else {
-					System.out.println("Conta já existe!");
-				}
+				
+				if (cm.verifyConta(num) == null) { c.criarConta(new Conta(0.0, num)); } 
+				else { System.out.println("Conta já existe!"); }
 				break;
+
 			case 5:
 				System.out.println("Digite o numero da conta: ");
-				numConta = s.nextLine();
-				Conta conta = verifyConta(Integer.parseInt(numConta));
-				if (conta != null) {
-					c.removerConta(conta);
-				} else {
-					System.out.println("Conta não existe!");
-				}
+				numConta = sc.nextLine();
+				
+				Conta conta = cm.verifyConta(Integer.parseInt(numConta));
+				
+				if (conta != null) { c.removerConta(conta); } 
+				else { System.out.println("Conta não existe!"); }
+				break;
+			case 6:
+				System.out.println("Digite o numero da conta: ");
+				numConta = sc.nextLine();
+
+				Conta conta2 = cm.verifyConta(Integer.parseInt(numConta));
+
+				if (conta2 != null) { System.out.println(conta2.getHistorico()); }
+				else { System.out.println("Conta não existe!"); }
 				break;
 			}
-		} while (op != 6);
-		s.close();
+		} while (op != 7);
+
+		sc.close();
 		this.menuCliente();
 	}
 
-	public Boolean verificaCPF(String cpf) {
-		for (Cliente cliente : clientes) {
-			if (cpf == cliente.getCpf()) {
-				return false;
-			}
-		}
-		return true;
-	}
-
 	public void menuCliente() {
-		Menu menu = new Menu("Operações", Arrays.asList("Criar cliente", "Remover conta", "Operações", "Sair"));
-		Scanner s = new Scanner(System.in);
+		Menu menu = new Menu("Operações", Arrays.asList("Criar cliente", "Remover cliente", "Operações", "Sair"));
+		Cliente c;
 
 		String cpf, nome;
 		int op = 0;
 		boolean autorizado;
-		Cliente c;
+		
 		do {
 			op = menu.getSelection(4);
 			switch (op) {
 			case 0:
-				System.out.println("Digite o nome do cliente: ");
-				cpf = s.nextLine();
-				autorizado = verificaCPF(cpf);
+				System.out.println("Digite o cpf do cliente: ");
+				cpf = sc.nextLine();
+				autorizado = cm.verificaCPF(cpf);
+				
 				if (autorizado) {
 					System.out.println("Digite o nome do cliente: ");
-					nome = s.nextLine();
-					clientes.add(new Cliente(cpf, nome, new ArrayList<Conta>()));
-				} else {
-					System.out.println("Já existe um cliente com esse cpf!");
-					break;
+					nome = sc.nextLine();
+					cm.getClientes().add(new Cliente(cpf, nome, new ArrayList<Conta>()));
 				}
+				else { System.out.println("Já existe um cliente com esse cpf!"); }
 				break;
 
 			case 1:
-				System.out.println("Digite o CPF do cliente: ");
-				cpf = s.nextLine();
-				c = buscarClientePorCpf(cpf);
-				if (c != null)
-					RemoverCliente(c);
-				else
-					System.out.println("Não existe um cliente com este CPF");
+				c = cm.getCliente();
+				
+				if (c != null) { cm.RemoverCliente(c); }
+				else { System.out.println("Não existe um cliente com este CPF"); }
 				break;
 
 			case 2:
-				System.out.println("Digite o CPF do cliente: ");
-				cpf = s.nextLine();
+				c = cm.getCliente();
 
-				c = buscarClientePorCpf(cpf);
-
-				if (c != null) {
-					this.MenuOperacoes(c);
-				} else {
-					System.out.println("Não foi encontrado cliente.");
-				}
+				if (c != null) { this.MenuOperacoes(c); } 
+				else { System.out.println("Não foi encontrado cliente."); }
 				break;
 			}
 		} while (op != 3);
-		s.close();
+		sc.close();
 	}
 
 	public static void main(String[] args) {
