@@ -1,5 +1,3 @@
-import java.util.ArrayList;
-
 public class Conta {
 
     private int agencia;
@@ -34,7 +32,7 @@ public class Conta {
                     + op.getDestinatario() + "\n";
         } else {
             str = "Tipo: " + op.getTipo() + "\nValor:" + op.getValor() + "\nDest:" + op.getDestinatario() + "\n";
-            this.historico += str;
         }
+        this.historico += str;
     }
 }
