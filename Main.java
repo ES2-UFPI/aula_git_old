@@ -82,13 +82,21 @@ public class Main {
 		} while (op != 4);
 		this.menuCliente();
 	}
-
+	public Boolean verificaCPF(String cpf){
+		for (Cliente cliente : clientes){
+			if (cpf == cliente.getCpf()){
+				return false;
+			}
+		}
+		return true;
+	}
 	public void menuCliente() {
 		Menu menu = new Menu("Operações", Arrays.asList("Criar cliente", "Remover conta", "Operações", "Sair"));
 		Scanner s = new Scanner(System.in);
 
 		String cpf, nome;
 		int op = 0;
+		boolean autorizado;
 
 		do {
 			op = menu.getSelection(4);
@@ -96,10 +104,16 @@ public class Main {
 			case 0:
 				System.out.println("Digite o CPF do cliente: ");
 				cpf = s.nextLine();
-				System.out.println("Digite o nome do cliente: ");
-				nome = s.nextLine();
-
-				clientes.add(new Cliente().adicionarCliente(cpf, nome));
+				autorizado = verificaCPF(cpf);
+				if (autorizado){
+					System.out.println("Digite o nome do cliente: ");
+					nome = s.nextLine();
+					clientes.add(new Cliente().adicionarCliente(cpf, nome));
+				}
+				else{
+					System.out.println("Já existe um cliente com esse cpf!");
+					break;
+				}
 				break;
 
 			case 1:
