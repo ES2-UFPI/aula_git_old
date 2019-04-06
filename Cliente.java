@@ -31,21 +31,8 @@ public class Cliente {
         this.nome = nome;
     }
 
-	  public Cliente removerCliente(ArrayList<Cliente> clientes, String cpf) {
-        for (Cliente c : clientes) {
-            if (c.getCpf().equalsIgnoreCase(cpf)) {
-                return c;
-            }
-        }
-        return null;
-    }
-    
-    public Cliente buscarClientePorCpf(ArrayList<Cliente> clientes, String cpf) {
-        return removerCliente(clientes, cpf);
-    }
-
     public void criarConta(Conta c) {
-        this.getContas().add(c);
+        getContas().add(c);
     }
 
     public void removerConta(Conta c) {
