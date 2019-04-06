@@ -32,7 +32,7 @@ public class Cliente {
     }
 
 	public Cliente adicionarCliente(String cpf, String nome) {
-		ArrayList<Conta> contas = new ArrayList<>();
+        ArrayList<Conta> contas = new ArrayList<>();
         Cliente cliente = new Cliente(cpf, nome, contas);
         return cliente;
 	}
