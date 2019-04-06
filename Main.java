@@ -6,11 +6,16 @@ public class Main {
 	ClienteManager cm = new ClienteManager();
 	Scanner sc = new Scanner(System.in);
 
-	public void doOperation(int tipo, Cliente c) {
+	public int input() {
+		String in;
 		System.out.println("Digite o número da conta: ");
-		String numConta = sc.nextLine();
+		in = sc.next();
+		return Integer.parseInt(in);
+	}
 
-		Conta conta = cm.verifyConta(Integer.parseInt(numConta));
+	public void doOperation(int tipo, Cliente c) {
+		int numConta = input();
+		Conta conta = cm.verifyConta(numConta);
 		Conta c2 = null;
 
 		if (conta != null) {
@@ -43,14 +48,13 @@ public class Main {
 			System.out.println("Conta não existe");
 			return;
 		}
-		sc.close();
 		return;
 	}
 
 	private void MenuOperacoes(Cliente c) {
 		Menu menu = new Menu("Operações", Arrays.asList("Sacar", "Depositar", "Ver Saldo", "Transferir",
 				"Adicionar conta", "Remover conta", "Ver Operacoes", "Voltar"));
-		String numConta;
+		int numConta;
 		int op = 0;
 
 		do {
@@ -69,22 +73,17 @@ public class Main {
 				this.doOperation(4, c);
 				break;
 			case 4:
-				System.out.println("Digite o numero da conta: ");
-				numConta = sc.nextLine();
-				int num = Integer.parseInt(numConta);
-
-				if (cm.verifyConta(num) == null) {
-					c.criarConta(new Conta(0.0, num));
+				numConta = input();
+				if (cm.verifyConta(numConta) == null) {
+					c.criarConta(new Conta(0.0, numConta));
 				} else {
 					System.out.println("Conta já existe!");
 				}
 				break;
 
 			case 5:
-				System.out.println("Digite o numero da conta: ");
-				numConta = sc.nextLine();
-
-				Conta conta = cm.verifyConta(Integer.parseInt(numConta));
+				numConta = input();
+				Conta conta = cm.verifyConta(numConta);
 
 				if (conta != null) {
 					c.removerConta(conta);
@@ -93,10 +92,8 @@ public class Main {
 				}
 				break;
 			case 6:
-				System.out.println("Digite o numero da conta: ");
-				numConta = sc.nextLine();
-
-				Conta conta2 = cm.verifyConta(Integer.parseInt(numConta));
+				numConta = input();
+				Conta conta2 = cm.verifyConta(numConta);
 
 				if (conta2 != null) {
 					System.out.println(conta2.getHistorico());
@@ -106,8 +103,6 @@ public class Main {
 				break;
 			}
 		} while (op != 7);
-
-		sc.close();
 		this.menuCliente();
 	}
 
@@ -157,12 +152,12 @@ public class Main {
 				break;
 			}
 		} while (op != 3);
-		sc.close();
+		System.out.println("Fim");
+		System.exit(0);
 	}
 
 	public static void main(String[] args) {
 		Main m = new Main();
 		m.menuCliente();
-		System.out.println("Fim");
 	}
 }

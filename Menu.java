@@ -4,7 +4,6 @@ import java.util.Scanner;
 public class Menu {
 	private String title;
 	private List<String> options;
-	Scanner s = new Scanner(System.in);
 
 	public Menu(String title, List<String> options) {
 		this.title = title;
@@ -22,6 +21,8 @@ public class Menu {
 			System.out.println(Integer.toString(i) + "-" + options.get(i));
 			i++;
 		}
+
+		Scanner s = new Scanner(System.in);
 		String str = null;
 		str = s.nextLine();
 		opcao = Integer.parseInt(str);
