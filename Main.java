@@ -77,7 +77,7 @@ public class Main {
 				System.out.println("Digite o numero da conta: ");
 				numConta = s.nextLine();
 
-				c.criarConta(new Conta().adicionarConta(Integer.parseInt(numConta)));
+				c.criarConta(new Conta(0.0, Integer.parseInt(numConta)));
 				break;
 			case 5:
 				System.out.println("Digite o numero da conta: ");
@@ -110,7 +110,7 @@ public class Main {
 				System.out.println("Digite o nome do cliente: ");
 				nome = s.nextLine();
 
-				clientes.add(new Cliente().adicionarCliente(cpf, nome));
+				clientes.add(new Cliente(cpf, nome, new ArrayList<Conta>()));
 				break;
 
 			case 1:
